@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.student.dd2018011701.data.Student;
 import com.example.student.dd2018011701.data.StudentScoreDAO;
@@ -40,16 +41,13 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,
                 android.R.layout.simple_list_item_1, studentNames);
         lv.setAdapter(adapter);
-        lv.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent it = new Intent(MainActivity.this, AddActivity.class);
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+//                Toast.makeText(MainActivity.this, String.valueOf(dao.getList().get(position).id), Toast.LENGTH_SHORT).show();
+                Intent it = new Intent(MainActivity.this, DetailActivity.class);
+                it.putExtra("id", dao.getList().get(position).id);
                 startActivity(it);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
 
