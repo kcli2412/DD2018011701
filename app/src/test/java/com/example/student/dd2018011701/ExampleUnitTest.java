@@ -68,14 +68,21 @@ public class ExampleUnitTest {
         dao.add(new Student(1,"Bob",95));
         dao.add(new Student(2,"Mary",80));
         dao.delete(1);
-        assertEquals(80, dao.getList().get(0).score);
+        assertEquals(1, dao.getList().size());
     }
-
     @Test
     public void test_deleteStudent1() throws Exception {
         StudentScoreDAO dao = new StudentScoreDAO();
         dao.add(new Student(1,"Bob",95));
         dao.add(new Student(2,"Mary",80));
         assertEquals(false, dao.delete(3));
+    }
+    @Test
+    public void test_deleteStudent2() throws Exception {
+        StudentScoreDAO dao = new StudentScoreDAO();
+        dao.add(new Student(1,"Bob",95));
+        dao.add(new Student(2,"Mary",80));
+        dao.delete(2);
+        assertEquals(null, dao.getStudent(2));
     }
 }
