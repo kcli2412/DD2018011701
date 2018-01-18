@@ -20,19 +20,19 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     final public static StudentScoreDAO dao = new StudentScoreDAO();
     ListView lv;
-    MyAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        lv = (ListView) findViewById(R.id.listView);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        lv = (ListView) findViewById(R.id.listView);
         ArrayList<String> studentNames = new ArrayList<>();
         for (Student s:dao.getList())
         {
@@ -44,14 +44,13 @@ public class MainActivity extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                Toast.makeText(MainActivity.this, String.valueOf(dao.getList().get(position).id), Toast.LENGTH_SHORT).show();
                 Intent it = new Intent(MainActivity.this, DetailActivity.class);
                 it.putExtra("id", dao.getList().get(position).id);
                 startActivity(it);
             }
         });
 
-//        myAdapter = new MyAdapter(MainActivity.this, dao.getList());
+//        MyAdapter myAdapter = new MyAdapter(MainActivity.this, dao.getList());
 //        lv.setAdapter(myAdapter);
     }
 

@@ -9,20 +9,22 @@ import android.widget.TextView;
 
 import com.example.student.dd2018011701.data.Student;
 
-public class UpdateActivity extends AppCompatActivity {
+public class EditActivity extends AppCompatActivity {
     EditText et4, et5;
     TextView tv7;
     Student s;
+    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update);
+        setContentView(R.layout.activity_edit);
         tv7 = findViewById(R.id.textView7);
         et4 = findViewById(R.id.editText4);
         et5 = findViewById(R.id.editText5);
-        int id = getIntent().getIntExtra("id", 0);
+        id = getIntent().getIntExtra("id", 0);
         s = MainActivity.dao.getStudent(id);
+
         tv7.setText(String.valueOf(s.id));
         et4.setText(s.name);
         et5.setText(String.valueOf(s.score));
@@ -35,8 +37,7 @@ public class UpdateActivity extends AppCompatActivity {
 
     public void clickUpdate(View v)
     {
-        s.name = et4.getText().toString();
-        s.score = Integer.valueOf(et5.getText().toString());
+        Student s = new Student(id, et4.getText().toString(), Integer.valueOf(et5.getText().toString()));
         MainActivity.dao.update(s);
         finish();
     }
