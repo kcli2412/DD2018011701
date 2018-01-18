@@ -52,7 +52,7 @@ public class StudentFileDAO {
             String str = br.readLine();
             Gson gson = new Gson();
             mylist = gson.fromJson(str, new TypeToken<ArrayList<Student>>(){}.getType());
-            br.close();;
+            br.close();
             fr.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
