@@ -13,18 +13,20 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.student.dd2018011701.data.Student;
+import com.example.student.dd2018011701.data.StudentFileDAO;
 import com.example.student.dd2018011701.data.StudentScoreDAO;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    final public static StudentScoreDAO dao = new StudentScoreDAO();
+    public static StudentFileDAO dao;
     ListView lv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        dao = new StudentFileDAO(MainActivity.this);
 
         lv = (ListView) findViewById(R.id.listView);
     }
