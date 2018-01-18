@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * Created by Student on 2018/1/18.
  */
 
-public class StudentFileDAO {
+public class StudentFileDAO implements StudentDAO {
     Context context;
     ArrayList<Student> mylist;
 
