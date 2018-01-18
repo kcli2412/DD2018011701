@@ -7,13 +7,13 @@ import android.content.Context;
  */
 
 public class StudentDAOFactory {
-    public static StudentDAO getDAOInstance(Context context, int dbType)
+    public static StudentDAO getDAOInstance(Context context, DBType dbType)
     {
         switch (dbType)
         {
-            case 1:
+            case MOMERY:
                 return new StudentScoreDAO();
-            case 2:
+            case FILE:
                 return  new StudentFileDAO(context);
         }
         return null;

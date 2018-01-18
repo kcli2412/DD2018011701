@@ -12,8 +12,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.student.dd2018011701.data.DBType;
 import com.example.student.dd2018011701.data.Student;
 import com.example.student.dd2018011701.data.StudentDAO;
+import com.example.student.dd2018011701.data.StudentDAOFactory;
 import com.example.student.dd2018011701.data.StudentFileDAO;
 import com.example.student.dd2018011701.data.StudentScoreDAO;
 
@@ -22,31 +24,20 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     public static StudentDAO dao;
     ListView lv;
-    int dbType;
+    DBType dbType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dbType = 1; // 1:記憶體 2:檔案
-        switch (dbType)
-        {
-            case 1:
-                dao = new StudentScoreDAO();
-                break;
-            case 2:
-                dao = new StudentFileDAO(MainActivity.this);
-                break;
-        }
-
-
-        lv = (ListView) findViewById(R.id.listView);
+        dbType = DBType.FILE;
+        dao = StudentDAOFactory.getDAOInstance(MainActivity.this, dbType);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
+        lv = (ListView) findViewById(R.id.listView);
         ArrayList<String> studentNames = new ArrayList<>();
         for (Student s:dao.getList())
         {
