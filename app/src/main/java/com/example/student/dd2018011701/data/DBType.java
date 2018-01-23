@@ -5,5 +5,5 @@ package com.example.student.dd2018011701.data;
  */
 
 public enum DBType {
-    MOMERY, FILE, DB
+    MOMERY, FILE, DB, CLOUD
 }

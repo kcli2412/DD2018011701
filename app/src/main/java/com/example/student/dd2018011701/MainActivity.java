@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dbType = DBType.DB;
+        dbType = DBType.CLOUD;
         dao = StudentDAOFactory.getDAOInstance(MainActivity.this, dbType);
     }
 
