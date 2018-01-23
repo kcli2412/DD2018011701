@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     public static StudentDAO dao;
     ListView lv;
     DBType dbType;
+    ArrayList<String> studentNames;
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,18 +34,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         dbType = DBType.CLOUD;
         dao = StudentDAOFactory.getDAOInstance(MainActivity.this, dbType);
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
         lv = (ListView) findViewById(R.id.listView);
-        ArrayList<String> studentNames = new ArrayList<>();
-        for (Student s:dao.getList())
-        {
-            studentNames.add(s.name);
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,
+        studentNames = new ArrayList<>();
+        adapter = new ArrayAdapter<String>(MainActivity.this,
                 android.R.layout.simple_list_item_1, studentNames);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -54,9 +48,24 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(it);
             }
         });
-
 //        MyAdapter myAdapter = new MyAdapter(MainActivity.this, dao.getList());
 //        lv.setAdapter(myAdapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshData();
+    }
+
+    public void refreshData()
+    {
+        studentNames.clear();
+        for (Student s:dao.getList())
+        {
+            studentNames.add(s.name);
+        }
+        adapter.notifyDataSetChanged();
     }
 
     @Override

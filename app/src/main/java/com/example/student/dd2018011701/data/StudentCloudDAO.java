@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.student.dd2018011701.MainActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,7 +32,7 @@ public class StudentCloudDAO implements StudentDAO {
     FirebaseDatabase database;
     DatabaseReference myRef;
 
-    public StudentCloudDAO(Context context)
+    public StudentCloudDAO(final Context context)
     {
         this.context = context;
 
@@ -47,6 +48,7 @@ public class StudentCloudDAO implements StudentDAO {
                 String value = dataSnapshot.getValue(String.class);
                 Gson gson = new Gson();
                 mylist = gson.fromJson(value, new TypeToken<ArrayList<Student>>(){}.getType());
+                ((MainActivity)context).refreshData();
             }
 
             @Override
@@ -68,7 +70,6 @@ public class StudentCloudDAO implements StudentDAO {
         String data = gson.toJson(mylist);
 
         myRef.setValue(data);
-        Log.d("SAVE", "saveFile: ");
     }
 
     public boolean add(Student s)
