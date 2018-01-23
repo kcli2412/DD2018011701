@@ -35,6 +35,7 @@ public class StudentCloudDAO implements StudentDAO {
     public StudentCloudDAO(final Context context)
     {
         this.context = context;
+        mylist = new ArrayList<>();
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("scores");
@@ -48,6 +49,10 @@ public class StudentCloudDAO implements StudentDAO {
                 String value = dataSnapshot.getValue(String.class);
                 Gson gson = new Gson();
                 mylist = gson.fromJson(value, new TypeToken<ArrayList<Student>>(){}.getType());
+                if (mylist == null)
+                {
+                    mylist = new ArrayList<>();
+                }
                 ((MainActivity)context).refreshData();
             }
 
@@ -56,11 +61,6 @@ public class StudentCloudDAO implements StudentDAO {
                 // Failed to read value
             }
         });
-
-        if (mylist == null)
-        {
-            mylist = new ArrayList<>();
-        }
     }
 
     private void saveFile()
